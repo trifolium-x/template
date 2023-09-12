@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.tunan.template.repo.mapper.AdminMapper">
-    <resultMap id="BaseResultMap" type="co.tunan.template.repo.entity.Admin">
+<mapper namespace="com.example.template.repo.mapper.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.example.template.repo.entity.Admin">
         <!--@mbg.generated generated on Tue Jan 10 15:36:38 CST 2023.-->
         <!--@Table t_admin-->
         <id column="id" jdbcType="BIGINT" property="id"/>

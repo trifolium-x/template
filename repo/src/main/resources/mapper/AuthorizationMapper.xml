@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.tunan.template.repo.mapper.AuthorizationMapper">
-    <resultMap id="BaseResultMap" type="co.tunan.template.repo.entity.Authorization">
+<mapper namespace="com.example.template.repo.mapper.AuthorizationMapper">
+    <resultMap id="BaseResultMap" type="com.example.template.repo.entity.Authorization">
         <!--@mbg.generated generated on Tue Jan 10 16:18:05 CST 2023.-->
         <!--@Table t_authorization-->
         <id column="id" jdbcType="BIGINT" property="id"/>
