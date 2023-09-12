@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: ${IMAGE_NAME}
+  name: ${IMAGE_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      run: ${IMAGE_NAME}
+  template:
+    metadata:
+      labels:
+        run: ${IMAGE_NAME}
+    spec:
+      containers:
+        - image: ${IMAGE_URL}
+          name: ${IMAGE_NAME}
+          #资源需求
+          resources:
+            requests:
+              memory: 1024Mi
+            limits:
+              memory: 1024Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: ${SPRING_PROFILES_ACTIVE}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: ${DB_USERNAME}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "${DB_PASSWORD}"
+

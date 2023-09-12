@@ -1,0 +1,72 @@
+server:
+  servlet:
+    context-path: /template
+    application-display-name: template脚手架项目
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  profiles:
+    active: dev
+  application:
+    name: template
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  freemarker:
+    check-template-location: false
+  thymeleaf:
+    check-template-location: false
+    cache: false
+  task:
+    scheduling:
+      pool:
+        size: 2
+    execution:
+      pool:
+        core-size: 4
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: '@project.groupId@.repo.entity'
+  configuration.map-underscore-to-camel-case: true
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+application-description: '@project.description@'
+application-version: '@project.version@'
+
+tucache:
+  profiles:
+    cache-prefix: ${app.cache.key-prefix}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    show-extensions: true
+    show-common-extensions: true
+
+knife4j:
+  enable: true
+  production: false
+
+mapper:
+  mappers:
+  safe-update: true
+  safe-delete: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  config: classpath:logback-spring.xml
