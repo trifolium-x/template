@@ -19,7 +19,7 @@
     </modules>
 
     <properties>
-        <spring.boot.version>2.7.7</spring.boot.version>
+        <spring.boot.version>2.7.15</spring.boot.version>
         <redisson.version>3.23.4</redisson.version>
         <tucache.version>1.0.3.RELEASE</tucache.version>
         <knife4j.version>4.3.0</knife4j.version>

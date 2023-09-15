@@ -1,6 +1,6 @@
 ### 我的脚手架
 * JDK17
-* springBoot 2.7.7
+* springBoot 2.7.15
 * tkMybatis
 * Pagehelper
 * Tucache
