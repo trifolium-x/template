@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 
 /**
  * Title:
+ * 默认为一个无界线程池，策略： 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
  *
  * @author trifolium
  * @version 1.0
@@ -14,13 +15,18 @@ import java.util.concurrent.*;
 @Slf4j
 public class ThreadPoolUtil {
 
+    // 任务队列长度
+    private static final int MAX_QUEUE_SIZE = Integer.MAX_VALUE;
+
     private static final int CORE_THREAD_NUM = Runtime.getRuntime().availableProcessors();
     // 最大为100个线程
     private static final int MAXIMUM_POOL_SIZE = Math.min(CORE_THREAD_NUM * 24, 100);
 
+
     private static final String THREAD_POOL_GROUP_NAME = "APP-CUSTOM-T-GROUP";
     private static final String THREAD_NAME_PREFIX = "APP-CUSTOM-T-POOL-";
-    private static final ThreadTaskLinkedBlockingDeque<Runnable> BLOCKING_QUEUE = new ThreadTaskLinkedBlockingDeque<>();
+    private static final ThreadTaskLinkedBlockingDeque<Runnable> BLOCKING_QUEUE
+            = new ThreadTaskLinkedBlockingDeque<>(MAX_QUEUE_SIZE);
     private static final ThreadPoolExecutor THREAD_POOL;
 
     static {
@@ -30,7 +36,7 @@ public class ThreadPoolUtil {
                 ThreadUtil.newNamedThreadFactory(THREAD_NAME_PREFIX,
                         new ThreadGroup(ThreadUtil.currentThreadGroup(), THREAD_POOL_GROUP_NAME), false),
                 (r, executor) -> {
-                    System.out.println("线程池满,打印错误日志");
+                    log.error(THREAD_POOL_GROUP_NAME + " thread pool is full.");
                     new ThreadPoolExecutor.AbortPolicy().rejectedExecution(r, executor);
                 });
     }
@@ -88,10 +94,17 @@ public class ThreadPoolUtil {
     }
 
     private static class ThreadTaskLinkedBlockingDeque<E> extends LinkedBlockingDeque<E> {
+
+        private ThreadTaskLinkedBlockingDeque(int capacity) {
+            super(capacity);
+        }
+
         @Override
         public boolean offer(E e) {
-            int activeThreadNum = THREAD_POOL.getActiveCount();
-            if (activeThreadNum < MAXIMUM_POOL_SIZE) {
+            /*
+             * 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
+             */
+            if (THREAD_POOL.getActiveCount() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
                 return false;
             }
 
