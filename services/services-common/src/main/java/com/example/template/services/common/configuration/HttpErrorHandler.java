@@ -1,6 +1,6 @@
 package com.example.template.services.common.configuration;
 
-import org.springframework.boot.autoconfigure.web.ServerProperties;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +14,17 @@ import javax.servlet.http.HttpServletRequest;
  * @date: 2022/1/27
  * @modified :
  */
+@Hidden
 @RestController
 public class HttpErrorHandler implements ErrorController {
 
 
-    private final ServerProperties serverProperties;
-
-    public HttpErrorHandler(ServerProperties serverProperties) {
-
-        this.serverProperties = serverProperties;
-    }
+//    private final ServerProperties serverProperties;
+//
+//    public HttpErrorHandler(ServerProperties serverProperties) {
+//
+//        this.serverProperties = serverProperties;
+//    }
 
     protected HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");

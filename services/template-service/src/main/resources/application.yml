@@ -11,6 +11,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+    # 使用devtools后会被会注入为true，false抑制警告
+#    log-resolved-exception: false
+    # 开发环境下的请求追踪
+#    log-request-details: false
+
   profiles:
     active: dev
   application:

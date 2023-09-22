@@ -71,7 +71,7 @@ public class AuthService {
     public AdminLoginVo login(AdminLoginRo ro) {
         var rateLimiter = redissonClient.getRateLimiter("rate_limiter:user_login:" + ro.getUserName());
         // 通过用户名限制刷验证码
-        rateLimiter.trySetRate(RateType.OVERALL, 20, 10, RateIntervalUnit.MINUTES);
+        rateLimiter.trySetRate(RateType.OVERALL, 10, 5, RateIntervalUnit.MINUTES);
         if (rateLimiter.tryAcquire()) {
             checkCaptcha(ro.getCaptcha());
             var admins = adminMapper.findByUserName(ro.getUserName());
@@ -110,7 +110,7 @@ public class AuthService {
             long expires = System.currentTimeMillis() + (appConfig.getTimeout() * 1000);
             // 生成jwt
             loginVo.setToken(JWT.create()
-                    .setSubject(admin.getId() + "")
+                    .setSubject(String.valueOf(admin.getId()))
                     .setExpiresAt(new Date(expires))
                     .setIssuedAt(new Date())
                     .setJWTId(StrUtil.uuid().replace("-", ""))
@@ -126,7 +126,7 @@ public class AuthService {
 
         } else {
 
-            throw new InvokeException("连续输入错误次数太多,请10分钟之后再试!");
+            throw new InvokeException("连续输入错误次数太多,请5分钟之后再试!");
         }
     }
 
@@ -140,7 +140,7 @@ public class AuthService {
         }
         var sessionId = session.getId();
         var ip = SessionHolder.getRemoteIp();
-        // 通过ip限制刷验证码
+        // 通过ip简单限制刷验证码
         var rateLimiter = redissonClient.getRateLimiter("rate_limiter:get_captcha_image:" + ip);
         rateLimiter.trySetRate(RateType.OVERALL, 60, 3, RateIntervalUnit.MINUTES);
         if (rateLimiter.tryAcquire()) {
@@ -157,7 +157,7 @@ public class AuthService {
             redisCacheService.set(Const.REDIS_USER_LOGIN_CAPTCHA_PREFIX + sessionId, captcha, 60 * 10L);
         } else {
 
-            throw new InvokeException("请求次数过多，3分钟后请再次尝试");
+            throw new InvokeException("请求次数过多，请稍后再试.");
         }
     }
 
