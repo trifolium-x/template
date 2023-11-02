@@ -2,9 +2,10 @@ debug: false
 spring:
   redis:
     database: 11
-    host: 127.0.0.1
+    host: @redis.ip@
     port: 6379
     timeout: 5000ms
+    password: 123456
     lettuce:
       pool:
         max-active: 8
@@ -14,7 +15,7 @@ spring:
 
   # datasource
   datasource:
-    url: 'jdbc:mysql://127.0.0.1:3306/template?tcpKeepAlive=true&serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8'
+    url: 'jdbc:mysql://@mysql.ip@:3306/template?tcpKeepAlive=true&serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8'
     username: test
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

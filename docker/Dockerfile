@@ -6,13 +6,13 @@ LABEL app="template-service" version="1.0-SNAPSHOT" by="trifolium"
 
 ENV APP_VERSION 1.0-SNAPSHOT
 
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
-
-RUN mkdir /app
-
-COPY ../services/template-service/target/template-service.jar /app/app.jar
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone \
+    && mkdir /app \
+    && mkdir /app/logs
 
 WORKDIR /app
+
+COPY services/template-service/target/template-service.jar /app/app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]
 

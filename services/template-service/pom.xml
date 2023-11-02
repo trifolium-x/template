@@ -38,8 +38,28 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <redis.ip>127.0.0.1</redis.ip>
+                <mysql.ip>127.0.0.1</mysql.ip>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <redis.ip>docker.for.mac.host.internal</redis.ip>
+                <mysql.ip>docker.for.mac.host.internal</mysql.ip>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>template-service</finalName>
         <plugins>

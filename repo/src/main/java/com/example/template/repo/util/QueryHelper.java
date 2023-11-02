@@ -67,6 +67,7 @@ public class QueryHelper {
         paging.setPageSize(pageInfo.getPageSize());
         paging.setPageIndex(pageInfo.getPageNum());
         paging.setPageCount(pageInfo.getPages());
+        PageHelper.clearPage();
 
         return paging;
     }
@@ -83,6 +84,7 @@ public class QueryHelper {
         paging.setPageSize(pageInfo.getPageSize());
         paging.setPageIndex(pageInfo.getPageNum());
         paging.setPageCount(pageInfo.getPages());
+        PageHelper.clearPage();
 
         return paging;
     }
@@ -99,6 +101,7 @@ public class QueryHelper {
         paging.setPageSize(pageInfo.getPageSize());
         paging.setPageIndex(pageInfo.getPageNum());
         paging.setPageCount(pageInfo.getPages());
+        PageHelper.clearPage();
 
         return paging;
     }
@@ -115,9 +118,7 @@ public class QueryHelper {
     private static String getSortString(Map<String, String> mapping, PageCondition pageCondition) {
         if (pageCondition.getSort() != null) {
             String orderBy = mapping.get(pageCondition.getSort());
-            if (orderBy == null) {
-
-            } else {
+            if (orderBy != null) {
                 return String.format("%s %s", orderBy, pageCondition.getOrder().getValue());
             }
         }
