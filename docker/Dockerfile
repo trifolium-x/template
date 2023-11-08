@@ -1,6 +1,6 @@
 FROM openjdk:17
 
-MAINTAINER trifolium <trifolium.wang@foxmail.com>
+MAINTAINER trifolium <trifolium.wang@gmail.com>
 
 LABEL app="template-service" version="1.0-SNAPSHOT" by="trifolium"
 

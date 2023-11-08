@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: template-service
+  namespace: template_project
   labels:
-    run: ${IMAGE_NAME}
-  name: ${IMAGE_NAME}
+    run: template-service
 spec:
-  replicas: ${REPLICAS}
+  replicas: 1
   selector:
     matchLabels:
-      run: ${IMAGE_NAME}
+      run: template-service
   template:
     metadata:
       labels:
-        run: ${IMAGE_NAME}
+        run: template-service
     spec:
       containers:
-        - image: ${IMAGE_URL}
-          name: ${IMAGE_NAME}
+        - image: template-service
+          imagePullPolicy: Never
+          name: template-service
           #资源需求
           resources:
             requests:
@@ -25,9 +27,9 @@ spec:
               memory: 1024Mi
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: ${SPRING_PROFILES_ACTIVE}
+              value: test
             - name: SPRING_DATASOURCE_USERNAME
-              value: ${DB_USERNAME}
+              value: 'db_user_name'
             - name: SPRING_DATASOURCE_PASSWORD
-              value: "${DB_PASSWORD}"
+              value: "du_user_pwd"
 
