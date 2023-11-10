@@ -1,4 +1,4 @@
-package com.example.template.service.template.controller;
+package com.example.template.service.template.api;
 
 import com.example.template.common.response.Paging;
 import com.example.template.common.response.ResponseResult;
@@ -14,15 +14,15 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 /**
- * @title: AdminController
+ * @title: TestApi
  * @author: trifolium
  * @date: 2023/9/8
  * @modified :
  */
-@Tag(name = "用户管理相关接口")
+@Tag(name = "test")
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/test")
+public class TestApi {
 
     @Inject
     private AdminService adminService;

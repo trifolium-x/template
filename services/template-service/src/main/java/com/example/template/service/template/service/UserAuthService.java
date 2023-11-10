@@ -41,14 +41,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @title: AuthService
+ * @title: UserAuthService
  * @author: trifolium
  * @date: 2023/1/9
  * @modified :
  */
 @Service
 @Transactional
-public class AuthService {
+public class UserAuthService {
 
     @Inject
     private RedissonClient redissonClient;

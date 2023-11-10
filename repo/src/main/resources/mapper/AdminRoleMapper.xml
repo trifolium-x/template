@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.example.template.repo.entity.AdminRole">
         <!--@mbg.generated generated on Mon Jan 09 17:35:56 CST 2023.-->
         <!--@Table t_admin_role-->
-        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
@@ -13,10 +13,21 @@
         <result column="is_banned" jdbcType="BOOLEAN" property="isBanned"/>
         <result column="is_sys_role" jdbcType="BOOLEAN" property="isSysRole"/>
         <result column="is_del" jdbcType="BOOLEAN" property="isDel"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Mon Jan 09 17:35:56 CST 2023.-->
         id, code, `name`, `type`, create_by, create_time, is_banned, is_sys_role,
-        is_del
+        is_del,description
     </sql>
+
+    <select id="search" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM  t_admin_role
+        WHERE is_del = 0
+        <if test="keyword != null and keyword != ''">
+            AND (name LIKE concat('%', #{keyword}, '%') OR code LIKE concat('%', #{keyword}, '%'))
+        </if>
+    </select>
 </mapper>

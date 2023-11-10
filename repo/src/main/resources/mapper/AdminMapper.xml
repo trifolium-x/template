@@ -34,4 +34,23 @@
         </where>
         ORDER BY id DESC
     </select>
+
+    <update id="delAdminOneRole">
+        UPDATE t_admin
+        SET role_codes = JSON_REMOVE(role_codes, JSON_UNQUOTE(JSON_SEARCH(role_codes, 'one', '#{roleCode}')))
+        WHERE JSON_CONTAINS(role_codes, '"${roleCode}"')
+    </update>
+
+    <select id="searchUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_admin
+        <where>
+            is_del = 0
+            <if test="keyword != null and keyword != ''">
+                AND (user_name LIKE CONCAT('%',#{keyword},'%') OR name LIKE CONCAT('%',#{keyword},'%'))
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
 </mapper>

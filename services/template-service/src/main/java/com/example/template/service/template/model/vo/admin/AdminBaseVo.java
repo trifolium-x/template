@@ -1,5 +1,6 @@
 package com.example.template.service.template.model.vo.admin;
 
+import com.example.template.repo.entity.Admin;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -12,6 +13,17 @@ import lombok.Data;
 @Data
 @Schema(name = "AdminBaseVo", description = "管理员基础vo-AdminBaseVo")
 public class AdminBaseVo {
+
+    public AdminBaseVo(){
+
+    }
+
+    public AdminBaseVo(Admin admin){
+
+        this.id = admin.getId();
+        this.name = admin.getName();
+        this.userName = admin.getUserName();
+    }
 
     /**
      * 主键id

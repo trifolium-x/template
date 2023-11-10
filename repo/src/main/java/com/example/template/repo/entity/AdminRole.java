@@ -19,7 +19,7 @@ public class AdminRole {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "JDBC")
-    private Integer id;
+    private Long id;
 
     @Column(name = "code")
     private String code;
@@ -45,4 +45,7 @@ public class AdminRole {
     @LogicDelete
     @Column(name = "is_del")
     private Boolean isDel;
+
+    @Column(name = "description")
+    private String description;
 }

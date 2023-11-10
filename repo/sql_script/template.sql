@@ -1,5 +1,17 @@
 /*
-* 测试脚本
+ Navicat Premium Data Transfer
+
+ Source Server         : 本机docker
+ Source Server Type    : MySQL
+ Source Server Version : 80034 (8.0.34)
+ Source Host           : 127.0.0.1:3306
+ Source Schema         : template
+
+ Target Server Type    : MySQL
+ Target Server Version : 80034 (8.0.34)
+ File Encoding         : 65001
+
+ Date: 10/11/2023 19:05:55
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +36,7 @@ CREATE TABLE `t_admin` (
   `is_del` tinyint(1) NOT NULL COMMENT 'isDel',
   `ext` json DEFAULT NULL COMMENT 'ext',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin';
 
 -- ----------------------------
 -- Records of t_admin
@@ -47,6 +59,7 @@ CREATE TABLE `t_admin_role` (
   `is_banned` tinyint(1) DEFAULT NULL,
   `is_sys_role` tinyint(1) DEFAULT NULL,
   `is_del` tinyint(1) DEFAULT NULL COMMENT 'isDel',
+  `description` text COMMENT '描述',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin_role';
 
