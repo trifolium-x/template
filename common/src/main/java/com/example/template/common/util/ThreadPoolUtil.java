@@ -109,7 +109,7 @@ public class ThreadPoolUtil {
                 /*
                  * 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
                  */
-                if (THREAD_POOL.getActiveCount() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
+                if (THREAD_POOL.getPoolSize() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
                     return false;
                 }
 
