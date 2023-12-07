@@ -4,6 +4,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Title:
@@ -99,16 +100,23 @@ public class ThreadPoolUtil {
             super(capacity);
         }
 
+        private final ReentrantLock lock = new ReentrantLock();
+
         @Override
         public boolean offer(E e) {
-            /*
-             * 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
-             */
-            if (THREAD_POOL.getActiveCount() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
-                return false;
-            }
+            lock.lock();
+            try {
+                /*
+                 * 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
+                 */
+                if (THREAD_POOL.getActiveCount() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
+                    return false;
+                }
 
-            return offerLast(e);
+                return offerLast(e);
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
