@@ -22,9 +22,9 @@ spec:
           #资源需求
           resources:
             requests:
-              memory: 1024Mi
+              memory: 2G
             limits:
-              memory: 1024Mi
+              memory: 2G
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: test

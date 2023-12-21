@@ -14,6 +14,6 @@ WORKDIR /app
 
 COPY services/template-service/target/template-service.jar /app/app.jar
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-Xms1700m", "-Xmx1700m", "-jar", "app.jar"]
 
 EXPOSE 8080
