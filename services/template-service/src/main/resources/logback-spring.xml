@@ -3,7 +3,7 @@
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <property name="log.path" value="logs"/>
+    <property name="log.path" value="logs/${project.artifactId}/${hostname}"/>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/log.log</file>
@@ -25,6 +25,7 @@
     <springProfile name="dev">
         <logger name="${project.groupId}" level="DEBUG"/>
         <root level="INFO">
+            <appender-ref ref="FILE"/>
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>

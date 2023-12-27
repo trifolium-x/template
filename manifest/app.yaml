@@ -32,4 +32,11 @@ spec:
               value: 'db_user_name'
             - name: SPRING_DATASOURCE_PASSWORD
               value: "du_user_pwd"
+#          volumeMounts:
+#            - name: logs-file
+#              mountPath: /app/logs/
+#      volumes:
+#      - name: logs-file
+#        persistentVolumeClaim:
+#          claimName: logs-file
 
