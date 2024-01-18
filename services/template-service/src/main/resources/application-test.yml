@@ -2,7 +2,7 @@ debug: false
 spring:
   redis:
     database: 10
-    host: 123456
+    host: xxx
     port: 6379
     password: 123456
     timeout: 5000ms
@@ -15,12 +15,12 @@ spring:
 
   # datasource
   datasource:
-    url: 'jdbc:mysql://123456:3306/template?tcpKeepAlive=true&serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8'
+    url: 'jdbc:mysql://xxx:3306/template?tcpKeepAlive=true&serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8'
     username: test
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      maximum-pool-size: 10
+      maximum-pool-size: 50
       connection-timeout: 10000
       max-lifetime: 7200000
       idle-timeout: 1800000
