@@ -2,9 +2,11 @@ package com.example.template.service.template.api;
 
 import com.example.template.common.response.Paging;
 import com.example.template.common.response.ResponseResult;
+import com.example.template.service.template.model.ro.account.SaveAdminRo;
 import com.example.template.service.template.model.ro.account.SaveRoleRo;
+import com.example.template.service.template.model.vo.account.AdminDetailVo;
 import com.example.template.service.template.model.vo.account.AdminListVo;
-import com.example.template.service.template.model.vo.account.AuthBaseVo;
+import com.example.template.service.template.model.vo.account.AuthTreeVo;
 import com.example.template.service.template.model.vo.account.RoleListVo;
 import com.example.template.service.template.service.AccountAdminService;
 import com.example.template.services.common.annotion.TokenValidator;
@@ -25,29 +27,33 @@ import java.util.List;
  */
 @Tag(name = "账户管理")
 @RestController
-@TokenValidator
+@TokenValidator(authorities = {"account_admin"})
 @RequestMapping("/user_admin")
 public class AccountAdminApi {
 
+    private final AccountAdminService accountAdminService;
+
     @Inject
-    private AccountAdminService accountAdminService;
+    public AccountAdminApi(AccountAdminService accountAdminService) {
+        this.accountAdminService = accountAdminService;
+    }
+
+    @Operation(summary = "权限树")
+    @GetMapping("/auth/tree")
+    public ResponseResult<List<AuthTreeVo>> authTree() {
+
+        return ResponseResult.success(accountAdminService.getAuthTree());
+    }
 
     @Operation(summary = "角色列表")
-    @PostMapping("/roles")
+    @PostMapping("/role/roles")
     public ResponseResult<Paging<RoleListVo>> roles(@Valid @RequestBody SearchRo ro) {
 
         return ResponseResult.success(accountAdminService.roles(ro));
     }
 
-    @Operation(summary = "权限树")
-    @GetMapping("/auth_tree")
-    public ResponseResult<List<AuthBaseVo>> authTree() {
-
-        return ResponseResult.success(accountAdminService.getAuthTree());
-    }
-
     @Operation(summary = "保存角色")
-    @PostMapping("/save_role")
+    @PostMapping("/role/save")
     public ResponseResult<Void> roles(@Valid @RequestBody SaveRoleRo ro) {
 
         accountAdminService.saveRole(ro);
@@ -55,7 +61,7 @@ public class AccountAdminApi {
     }
 
     @Operation(summary = "禁用或者启用角色")
-    @GetMapping("/dis_en_able_role")
+    @GetMapping("/role/dis_en_able")
     public ResponseResult<Void> disEnAbleRole(@RequestParam String code) {
 
         accountAdminService.disEnAbleRole(code);
@@ -63,7 +69,7 @@ public class AccountAdminApi {
     }
 
     @Operation(summary = "删除角色")
-    @GetMapping("/del_role")
+    @GetMapping("/role/del")
     public ResponseResult<Void> allHosCategory(@RequestParam String code) {
 
         accountAdminService.deleteRole(code);
@@ -71,11 +77,42 @@ public class AccountAdminApi {
     }
 
     @Operation(summary = "用户列表")
-    @PostMapping("/user_list")
+    @PostMapping("/user/list")
     public ResponseResult<Paging<AdminListVo>> adminList(@Valid @RequestBody SearchRo ro) {
 
         return ResponseResult.success(accountAdminService.adminList(ro));
     }
 
-    // TODO 保存用户，删除用户，禁用启用用户
+    @Operation(summary = "删除角色")
+    @GetMapping("/user/detail")
+    public ResponseResult<AdminDetailVo> allHosCategory(@RequestParam Long id) {
+
+
+        return ResponseResult.success(accountAdminService.adminDetail(id));
+    }
+
+    @Operation(summary = "保存用户")
+    @PostMapping("/user/save")
+    public ResponseResult<Paging<AdminListVo>> saveAdmin(@Valid @RequestBody SaveAdminRo ro) {
+
+        accountAdminService.saveAdmin(ro);
+        return ResponseResult.success();
+    }
+
+    @Operation(summary = "删除用户")
+    @GetMapping("/user/del")
+    public ResponseResult<Void> delAdmin(@RequestParam Long id) {
+
+        accountAdminService.deleteAdmin(id);
+        return ResponseResult.success();
+    }
+
+    @Operation(summary = "启用/禁用管理员")
+    @GetMapping("/user/dis_en_able")
+    public ResponseResult<Void> disEnAbleAdmin(@RequestParam Long id) {
+
+        accountAdminService.disEnAbleAdmin(id);
+        return ResponseResult.success();
+    }
+
 }

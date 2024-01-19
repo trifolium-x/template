@@ -1,4 +1,4 @@
-package com.example.template.service.template.model.vo.admin;
+package com.example.template.service.template.model.vo;
 
 import com.example.template.repo.entity.Admin;
 import io.swagger.v3.oas.annotations.media.Schema;

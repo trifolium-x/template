@@ -1,6 +1,6 @@
 package com.example.template.service.template.model.vo.account;
 
-import com.example.template.service.template.model.vo.admin.AdminBaseVo;
+import com.example.template.service.template.model.vo.AdminBaseVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -8,14 +8,14 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @title: AuthBaseVo
+ * @title: AuthTreeVo
  * @author: trifolium.wang
  * @date: 2023/11/6
  * @modified :
  */
 @Data
 @Schema(description = "权限树")
-public class AuthBaseVo implements TreeNode<AuthBaseVo, String> {
+public class AuthTreeVo implements TreeNode<AuthTreeVo, String> {
 
     @Schema(description = "权限code")
     private String id;
@@ -32,10 +32,10 @@ public class AuthBaseVo implements TreeNode<AuthBaseVo, String> {
     private String parentId;
 
     @Schema(description = "子权限们")
-    private List<AuthBaseVo> children;
+    private List<AuthTreeVo> children;
 
     @Override
-    public int compareTo(AuthBaseVo o) {
+    public int compareTo(AuthTreeVo o) {
         return this.id.compareTo(o.getId());
     }
 }

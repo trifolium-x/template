@@ -1,6 +1,5 @@
 package com.example.template.service.template.service;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -17,9 +16,7 @@ import com.example.template.repo.mapper.AdminMapper;
 import com.example.template.repo.mapper.AuthorizationMapper;
 import com.example.template.service.template.model.ro.AdminLoginRo;
 import com.example.template.service.template.model.ro.EditPwdRo;
-import com.example.template.service.template.model.vo.admin.AdminAuthorityVo;
-import com.example.template.service.template.model.vo.admin.AdminLoginDetailVo;
-import com.example.template.service.template.model.vo.admin.AdminLoginVo;
+import com.example.template.service.template.model.vo.auth.LoginVo;
 import com.example.template.services.common.RedisCacheService;
 import com.example.template.services.common.SessionHolder;
 import com.example.template.services.common.configuration.AppConfig;
@@ -68,7 +65,7 @@ public class UserAuthService {
     @Inject
     private AppConfig appConfig;
 
-    public AdminLoginVo login(AdminLoginRo ro) {
+    public LoginVo login(AdminLoginRo ro) {
         var rateLimiter = redissonClient.getRateLimiter("rate_limiter:user_login:" + ro.getUserName());
         // 通过用户名限制刷验证码
         rateLimiter.trySetRate(RateType.OVERALL, 10, 5, RateIntervalUnit.MINUTES);
@@ -85,8 +82,8 @@ public class UserAuthService {
             }
 
             // 组装前台需要的数据
-            var loginVo = new AdminLoginVo();
-            var adminVo = BeanUtil.toBean(admin, AdminLoginDetailVo.class);
+            var loginVo = new LoginVo();
+            var adminVo = BeanFiller.target(LoginVo.LoginAdminVo.class).accept(admin);
 
             List<Authorization> adminAuthorizations = new ArrayList<>();
             if (!admin.getIsSuper()) {
@@ -98,8 +95,8 @@ public class UserAuthService {
                     }
 
                     // 设置接口权限
-                    loginVo.setAuthorities(BeanFiller.target(AdminAuthorityVo.class).acceptList(adminAuthorizations
-                            .stream().filter(
+                    loginVo.setAuthorities(BeanFiller.target(LoginVo.LoginAuthorityVo.class)
+                            .acceptList(adminAuthorizations.stream().filter(
                                     a -> Objects.equals(AuthorizationType.INTERFACE.getCode(),
                                             String.valueOf(a.getType()))).collect(Collectors.toList())));
                 } else {

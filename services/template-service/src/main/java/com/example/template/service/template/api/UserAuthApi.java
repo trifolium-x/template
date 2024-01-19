@@ -3,7 +3,7 @@ package com.example.template.service.template.api;
 import com.example.template.common.response.ResponseResult;
 import com.example.template.service.template.model.ro.AdminLoginRo;
 import com.example.template.service.template.model.ro.EditPwdRo;
-import com.example.template.service.template.model.vo.admin.AdminLoginVo;
+import com.example.template.service.template.model.vo.auth.LoginVo;
 import com.example.template.service.template.service.UserAuthService;
 import com.example.template.services.common.annotion.TokenValidator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,12 +26,16 @@ import java.io.IOException;
 @RequestMapping("/auth")
 public class UserAuthApi {
 
+    private final UserAuthService authService;
+
     @Inject
-    private UserAuthService authService;
+    public UserAuthApi(UserAuthService authService){
+        this.authService = authService;
+    }
 
     @Operation(summary = "管理员登录")
     @PostMapping("/login")
-    public ResponseResult<AdminLoginVo> login(@Valid @RequestBody AdminLoginRo adminLoginRo) {
+    public ResponseResult<LoginVo> login(@Valid @RequestBody AdminLoginRo adminLoginRo) {
 
         return ResponseResult.success(authService.login(adminLoginRo));
     }
