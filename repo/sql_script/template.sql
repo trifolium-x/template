@@ -11,7 +11,7 @@
  Target Server Version : 80034 (8.0.34)
  File Encoding         : 65001
 
- Date: 10/11/2023 19:05:55
+ Date: 19/01/2024 17:40:33
 */
 
 SET NAMES utf8mb4;
@@ -36,13 +36,14 @@ CREATE TABLE `t_admin` (
   `is_del` tinyint(1) NOT NULL COMMENT 'isDel',
   `ext` json DEFAULT NULL COMMENT 'ext',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin';
 
 -- ----------------------------
 -- Records of t_admin
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_admin` (`id`, `name`, `user_name`, `password`, `role_codes`, `create_by`, `create_time`, `update_by`, `update_time`, `is_banned`, `is_super`, `is_del`, `ext`) VALUES (1, '系统管理员', 'admin', '96e79218965eb72c92a549dd5a330112', '[]', 0, '2023-09-07 15:39:01', 0, '2023-09-07 15:39:06', 0, 1, 0, NULL);
+INSERT INTO `t_admin` (`id`, `name`, `user_name`, `password`, `role_codes`, `create_by`, `create_time`, `update_by`, `update_time`, `is_banned`, `is_super`, `is_del`, `ext`) VALUES (1, '超级管理员', 'admin', '96e79218965eb72c92a549dd5a330112', '[]', 0, '2023-09-07 15:39:01', 0, '2023-09-07 15:39:06', 0, 1, 0, NULL);
+INSERT INTO `t_admin` (`id`, `name`, `user_name`, `password`, `role_codes`, `create_by`, `create_time`, `update_by`, `update_time`, `is_banned`, `is_super`, `is_del`, `ext`) VALUES (2, '管理员2', 'admin2', '96e79218965eb72c92a549dd5a330112', '[\"admin\"]', 1, '2024-01-19 15:00:50', 1, '2024-01-19 15:00:54', 0, 0, 0, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -61,12 +62,13 @@ CREATE TABLE `t_admin_role` (
   `is_del` tinyint(1) DEFAULT NULL COMMENT 'isDel',
   `description` text COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin_role';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_admin_role';
 
 -- ----------------------------
 -- Records of t_admin_role
 -- ----------------------------
 BEGIN;
+INSERT INTO `t_admin_role` (`id`, `code`, `name`, `type`, `create_by`, `create_time`, `is_banned`, `is_sys_role`, `is_del`, `description`) VALUES (1, 'admin', '管理员角色', NULL, 1, '2024-01-19 14:59:20', 0, 1, 0, '系统管理员角色，拥有所有权限');
 COMMIT;
 
 -- ----------------------------
@@ -80,12 +82,14 @@ CREATE TABLE `t_auth_role_idx` (
   `create_by` bigint DEFAULT NULL COMMENT 'createBy',
   `create_time` datetime DEFAULT NULL COMMENT 'createTime',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_auth_role_idx';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_auth_role_idx';
 
 -- ----------------------------
 -- Records of t_auth_role_idx
 -- ----------------------------
 BEGIN;
+INSERT INTO `t_auth_role_idx` (`id`, `role_code`, `auth_code`, `create_by`, `create_time`) VALUES (1, 'admin', 'account_admin', 1, '2024-01-19 15:06:00');
+INSERT INTO `t_auth_role_idx` (`id`, `role_code`, `auth_code`, `create_by`, `create_time`) VALUES (2, 'admin', 'test', 1, '2024-01-19 15:06:10');
 COMMIT;
 
 -- ----------------------------
@@ -104,12 +108,14 @@ CREATE TABLE `t_authorization` (
   `create_time` datetime DEFAULT NULL,
   `is_del` tinyint(1) DEFAULT NULL COMMENT 'isDel',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_authorization';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='mb_authorization';
 
 -- ----------------------------
 -- Records of t_authorization
 -- ----------------------------
 BEGIN;
+INSERT INTO `t_authorization` (`id`, `code`, `name`, `description`, `authority`, `type`, `parent_code`, `create_by`, `create_time`, `is_del`) VALUES (1, 'account_admin', '管理员权限', '账号管理', 'account_admin', NULL, NULL, 1, '2024-01-19 15:02:49', 0);
+INSERT INTO `t_authorization` (`id`, `code`, `name`, `description`, `authority`, `type`, `parent_code`, `create_by`, `create_time`, `is_del`) VALUES (2, 'test', '测试权限', '拥有测试接口权限', 'test', NULL, NULL, 1, '2024-01-19 15:04:23', 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
