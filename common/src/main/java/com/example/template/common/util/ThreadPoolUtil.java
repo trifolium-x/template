@@ -7,8 +7,9 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Title:
- * 默认为一个无界线程池，策略： 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
+ * Title: 自定义的动态线程池，
+ * 线程数量动态调节，但是依然保持在 MIN_THREAD_NUM - MAX_THREAD_NUM之间，无界队列。
+ * 策略： 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
  *
  * @author trifolium
  * @version 1.0
@@ -21,7 +22,7 @@ public class ThreadPoolUtil {
 
     private static final int CORE_THREAD_NUM = Runtime.getRuntime().availableProcessors();
     // 最大为100个线程
-    private static final int MAXIMUM_POOL_SIZE = Math.min(CORE_THREAD_NUM * 24, 100);
+    private static final int MAX_THREAD_NUM = Math.min(CORE_THREAD_NUM * 24, 100);
 
 
     private static final String THREAD_POOL_GROUP_NAME = "APP-CUSTOM-T-GROUP";
@@ -32,7 +33,7 @@ public class ThreadPoolUtil {
 
     static {
         // unbounded thread pool
-        THREAD_POOL = new ThreadPoolExecutor(CORE_THREAD_NUM, MAXIMUM_POOL_SIZE,
+        THREAD_POOL = new ThreadPoolExecutor(CORE_THREAD_NUM, MAX_THREAD_NUM,
                 10L, TimeUnit.SECONDS, BLOCKING_QUEUE,
                 ThreadUtil.newNamedThreadFactory(THREAD_NAME_PREFIX,
                         new ThreadGroup(ThreadUtil.currentThreadGroup(), THREAD_POOL_GROUP_NAME), false),
@@ -109,7 +110,7 @@ public class ThreadPoolUtil {
                 /*
                  * 当前队列积任务数量大于最大线程数，则启动新线程(前提是活动线程数小于最大线程数)
                  */
-                if (THREAD_POOL.getPoolSize() < MAXIMUM_POOL_SIZE && this.size() > MAXIMUM_POOL_SIZE) {
+                if (THREAD_POOL.getPoolSize() < MAX_THREAD_NUM && this.size() > MAX_THREAD_NUM) {
                     return false;
                 }
 
