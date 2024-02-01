@@ -32,7 +32,7 @@ public class TriplesKeyValue<K, V1, V2> extends KeyValue<K, V1> {
             return false;
         }
 
-        if (obj instanceof TriplesKeyValue o) {
+        if (obj instanceof TriplesKeyValue<?, ?, ?> o) {
             return Objects.equals(this.getValue2(), o.getValue2());
         }
 
@@ -42,7 +42,7 @@ public class TriplesKeyValue<K, V1, V2> extends KeyValue<K, V1> {
     @Override
     public int hashCode() {
 
-        return Objects.hash(this.getKey(),this.getValue(),this.getValue2());
+        return Objects.hash(this.getKey(), this.getValue(), this.getValue2());
     }
 
 }

@@ -5,7 +5,7 @@ metadata:
   namespace: template_project
 #  labels:
 #    test: test
-#    labele2: label
+#    label2: label
 spec:
   ports:
     - name: http

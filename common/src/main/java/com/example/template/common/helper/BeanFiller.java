@@ -23,7 +23,7 @@ public class BeanFiller<T> {
     }
 
     public static <T> BeanFiller<T> target(Class<T> targetClass) {
-        return new BeanFiller<T>(targetClass);
+        return new BeanFiller<>(targetClass);
     }
 
     private T createTarget() {
@@ -93,7 +93,7 @@ public class BeanFiller<T> {
 
     public <S> List<T> acceptList(Collection<S> sources, List<BiConsumer<T, S>> consumers) {
 
-        List<T> targets = new ArrayList<T>(sources.size());
+        List<T> targets = new ArrayList<>(sources.size());
         Iterator<S> it = sources.iterator();
 
         for (int i = 0; i < sources.size(); i++) {
@@ -151,8 +151,7 @@ public class BeanFiller<T> {
             } catch (Exception e) {
                 // 如果转换失败，则尝试使用json的方式进行转化，效率比较慢。
                 try {
-                    T tar = (T) JsonUtil.fromJson(JsonUtil.toJson(source), targetClass);
-                    PropertyUtils.copyProperties(target, tar);
+                    PropertyUtils.copyProperties(target, JsonUtil.fromJson(JsonUtil.toJson(source), targetClass));
                 } catch (Exception jsonE) {
                     log.warn("{}", e.getMessage());
                     throw new RuntimeException("bean filter error " + jsonE.getMessage(), jsonE);

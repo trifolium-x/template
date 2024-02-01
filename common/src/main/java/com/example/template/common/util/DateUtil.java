@@ -145,7 +145,6 @@ public class DateUtil {
     /**
      * 获取当前系统日期时间
      *
-     * @param format
      * @return 系统日期时间
      */
     public static String getDatetimeStr(String format) {
@@ -156,7 +155,7 @@ public class DateUtil {
     /**
      * 获取时间戳
      *
-     * @return 时间戳字符串yyyyMMddhhmmss
+     * @return 时间戳字符串yyyyMMddHHmmss
      */
     public static String getTimestamp() {
         DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -193,7 +192,6 @@ public class DateUtil {
     /**
      * 获取年龄精确到天
      *
-     * @param startDate
      */
     public static String ageDayString(Date startDate) {
         if (startDate != null) {

@@ -7,7 +7,7 @@ import java.util.List;
  * @author: trifolium
  * @date: 2019/3/11 19:48
  */
-public interface TreeNode<T extends TreeNode, E> extends Comparable<T> {
+public interface TreeNode<T extends TreeNode<?, ?>, E> extends Comparable<T> {
 
     List<T> getChildren();
 

@@ -99,7 +99,6 @@ public class MD5Util {
     /**
      * 验证签名
      *
-     * @param data
      * @param signature 签名
      */
     public static boolean checkMD5(String data, String signature) {
@@ -119,16 +118,10 @@ public class MD5Util {
         sb.append(r.nextInt(99999999)).append(r.nextInt(99999999));
         int len = sb.length();
         if (len < 16) {
-            for (int i = 0; i < 16 - len; i++) {
-                sb.append('0');
-            }
+            sb.append("0".repeat(Math.max(0, 16 - len)));
         }
         String salt = sb.toString();
         data = getMD5String(data + salt); //加盐后加密
-        if (data == null) {
-
-            return null;
-        }
         char[] cs = new char[48];
         for (int i = 0; i < 48; i += 3) {   //把盐按照一定的规则存入加密码中
             cs[i] = data.charAt(i / 3 * 2);  //把加密后的密码按一定规则排列

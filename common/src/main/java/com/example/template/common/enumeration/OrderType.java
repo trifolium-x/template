@@ -18,7 +18,7 @@ public enum OrderType {
      */
     ASC("asc");
 
-    private String value;
+    private final String value;
 
     OrderType(String value) {
         this.value = value;

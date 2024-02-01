@@ -37,8 +37,6 @@ public class JsonUtil {
     /**
      * 将json字符串转化为对象
      *
-     * @param json
-     * @param clazz
      */
     public static <T> T fromJson(String json, Class<T> clazz) {
         if (StrUtil.isBlank(json)) {
@@ -50,8 +48,6 @@ public class JsonUtil {
     /**
      * 将json字符串转化为对象
      *
-     * @param json
-     * @param typeReference
      */
     public static <T> T fromJson(String json, TypeReference<T> typeReference) {
         if (StrUtil.isBlank(json)) {
@@ -63,8 +59,6 @@ public class JsonUtil {
     /**
      * 将Json字符转换为List
      *
-     * @param json
-     * @param clazz
      */
     public static <T> List<T> jsonToList(String json, Class<T> clazz) {
         if (StrUtil.isBlank(json)) {
@@ -76,7 +70,6 @@ public class JsonUtil {
     /**
      * 将 json 转化为JSONObject
      *
-     * @param json
      */
     public static JSONObject jsonToJsonObject(String json) {
         if (StrUtil.isBlank(json)) {
@@ -95,7 +88,7 @@ public class JsonUtil {
         if (StrUtil.isEmpty(jsonStr)) {
             return new HashMap<>();
         }
-        return JSON.parseObject(jsonStr, new TypeReference<Map<String, Object>>() {
+        return JSON.parseObject(jsonStr, new TypeReference<>() {
         });
     }
 
@@ -110,7 +103,7 @@ public class JsonUtil {
 
             return new HashMap<>();
         }
-        return JSON.parseObject(jsonStr, new TypeReference<Map<String, String>>() {
+        return JSON.parseObject(jsonStr, new TypeReference<>() {
         });
     }
 
@@ -144,7 +137,6 @@ public class JsonUtil {
     /**
      * 将json数组转成List<Map<String,Object>
      *
-     * @param json
      */
     public static List<Map<String, Object>> jsonToListOfObjectMap(String json) {
         List<Object> lists = jsonToList(json, Object.class);
@@ -157,7 +149,6 @@ public class JsonUtil {
     /**
      * 将json数组转成List<Map<String,String>
      *
-     * @param json
      */
     public static List<Map<String, String>> jsonToListOfStrMap(String json) {
         List<Object> lists = jsonToList(json, Object.class);
@@ -170,7 +161,6 @@ public class JsonUtil {
     /**
      * clone 对象浅克隆
      *
-     * @param t
      */
     @SuppressWarnings("unchecked")
     public static <T> T clone(T t) {

@@ -7,7 +7,7 @@ package com.example.template.repo;
  */
 public class DynamicTableExample extends BaseExample {
 
-    private DynamicTableEntity dynamicTableEntity;
+    private final DynamicTableEntity dynamicTableEntity;
 
     public DynamicTableExample(DynamicTableEntity dynamicTableEntity) {
         super(dynamicTableEntity.getClass());

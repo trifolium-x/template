@@ -122,12 +122,12 @@ public class RedisConfiguration {
             private String classIdentifier;
 
             @Override
-            public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider)
+            public void serialize(NullValue value, JsonGenerator jGen, SerializerProvider provider)
                     throws IOException {
                 classIdentifier = StringUtils.hasText(classIdentifier) ? classIdentifier : "@class";
-                jgen.writeStartObject();
-                jgen.writeStringField(classIdentifier, NullValue.class.getName());
-                jgen.writeEndObject();
+                jGen.writeStartObject();
+                jGen.writeStringField(classIdentifier, NullValue.class.getName());
+                jGen.writeEndObject();
             }
         }));
 

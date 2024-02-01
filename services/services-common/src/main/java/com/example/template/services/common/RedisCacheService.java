@@ -153,7 +153,7 @@ public class RedisCacheService {
     }
 
     public boolean exists(String key) {
-        return redisTemplate.hasKey(prefixed(key));
+        return Boolean.TRUE.equals(redisTemplate.hasKey(prefixed(key)));
     }
 
     public <T> T get(String key, Class<T> clazz, long expire) {
@@ -185,8 +185,6 @@ public class RedisCacheService {
     /**
      * 设置值，但是不会重置过期时间
      *
-     * @param key
-     * @param value
      */
     public void update(String key, Object value) {
         Long expire = redisTemplate.getExpire(prefixed(key), TimeUnit.SECONDS);
@@ -219,16 +217,19 @@ public class RedisCacheService {
     /**
      * 删除key开头的所有数据
      *
-     * @param key
      */
     public void deleteKeys(String key) {
         Set<String> keys = redisTemplate.keys(prefixed(key) + "*");
-        redisTemplate.delete(keys);
+        if (keys != null) {
+            redisTemplate.delete(keys);
+        }
     }
 
     public void deleteNoPrefixedKeys(String key) {
         Set<String> keys = redisTemplate.keys(key + "*");
-        redisTemplate.delete(keys);
+        if (keys != null) {
+            redisTemplate.delete(keys);
+        }
     }
 
     public Long getExpire(String key) {

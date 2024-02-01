@@ -121,8 +121,6 @@ public class TreeBuilder {
     /**
      * 获取所有的祖先
      *
-     * @param treeNodeList
-     * @param ids
      */
     public static <E, T extends TreeNode<T, E>> List<T> getAllAncestors(List<T> treeNodeList, List<E> ids) {
         Map<E, T> treeNodeMap = new HashMap<>(treeNodeList.size() * 2);
@@ -149,8 +147,6 @@ public class TreeBuilder {
     /**
      * 获取所有的后代
      *
-     * @param treeNodeList
-     * @param ids
      */
     public static <E, T extends TreeNode<T, E>> List<T> getAllDescendants(List<T> treeNodeList, List<E> ids) {
         Map<E, List<T>> descendantsMap = new HashMap<>(treeNodeList.size());
