@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Profile;
  * @modified :
  */
 @Configuration
-@Profile({"dev", "test"})
+@Profile({"dev", "test", "uat"})
 public class SpringDocConfig extends BaseSpringDocConfig {
 
     @Bean

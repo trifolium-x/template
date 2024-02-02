@@ -9,7 +9,7 @@
 
     <packaging>pom</packaging>
     <name>template</name>
-    <description>template 脚手架项目</description>
+    <description>template 大型项目脚手架项目</description>
 
     <modules>
         <module>repo</module>

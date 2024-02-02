@@ -1,4 +1,4 @@
-### 我的脚手架
+### springboot 2.x的大型项目脚手架
 * JDK17
 * springBoot 2.7.15
 * tkMybatis
