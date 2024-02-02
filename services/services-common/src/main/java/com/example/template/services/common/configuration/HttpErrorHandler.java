@@ -1,11 +1,14 @@
 package com.example.template.services.common.configuration;
 
+import com.example.template.common.response.ResponseResult;
+import com.example.template.common.response.ResultCode;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -27,7 +30,7 @@ public class HttpErrorHandler implements ErrorController {
 //    }
 
     protected HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (statusCode == null) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
@@ -39,10 +42,10 @@ public class HttpErrorHandler implements ErrorController {
     }
 
     @RequestMapping("${server.error.path:${error.path:/error}}")
-    public String errorJson(HttpServletRequest request) {
+    public ResponseResult<Void> errorJson(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
 
-        return "error: " + status.value();
+        return ResponseResult.failure(status.value() + " : " + status.getReasonPhrase(), ResultCode.FAILURE.getValue());
     }
 
 }

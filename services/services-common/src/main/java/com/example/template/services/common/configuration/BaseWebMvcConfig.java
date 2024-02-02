@@ -47,11 +47,12 @@ public class BaseWebMvcConfig implements WebMvcConfigurer {
 
             if (exception instanceof TokenInvalidException) {
                 return new ResponseEntity<>(ResponseResult.failure(
-                        message, ResultCode.TOKEN_INVALID), HttpStatus.OK);
+                        message, ResultCode.TOKEN_INVALID.getValue()), HttpStatus.OK);
             }
             if (exception instanceof NoAuthException) {
 
-                return new ResponseEntity<>(ResponseResult.failure(message, ResultCode.NO_AUTH), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseResult.failure(message,
+                        ResultCode.NO_AUTH.getValue()), HttpStatus.OK);
             }
 
             return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
@@ -63,9 +64,9 @@ public class BaseWebMvcConfig implements WebMvcConfigurer {
             return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
         }
 
-        log.error("{}, code: {}", exception.getMessage(), ResultCode.EXCEPTION.getValue(), exception);
+        log.error("result_code: {}, msg: {}", exception.getMessage(), ResultCode.EXCEPTION, exception);
 
-        return new ResponseEntity<>(ResponseResult.error("Internal Server Error:", exception),
+        return new ResponseEntity<>(ResponseResult.error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

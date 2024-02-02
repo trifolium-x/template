@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
+ * 业务状态code
  * @author : trifolium
  * @title:
  * @date: 2020/03/10 14:01
@@ -14,12 +15,14 @@ public enum ResultCode {
     SUCCESS(0),
     // 失败
     FAILURE(1),
+    // 异常
+    EXCEPTION(-1),
+
     // 无权限
     NO_AUTH(3),
     // Token 失效
-    TOKEN_INVALID(7),
-    // 异常
-    EXCEPTION(9);
+    TOKEN_INVALID(7);
+
 
     final int value;
 

@@ -1,8 +1,8 @@
 package com.example.template.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title:请求返回的Json包装类
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0
  */
 @Data
-@Slf4j
+@Schema(name = "ResponseResult<T>", description = "响应结果包装器")
 public class ResponseResult<T> {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -22,7 +22,8 @@ public class ResponseResult<T> {
 
     private boolean success;
 
-    private ResultCode code;
+    @Schema(name = "code", description = "业务响应码：0正常，1失败，-1异常，其他请参考文档")
+    private int code;
 
     /**
      * 返回成功结果
@@ -31,7 +32,7 @@ public class ResponseResult<T> {
         ResponseResult<T> result = new ResponseResult<>();
         result.setData(data);
         result.success = true;
-        result.code = ResultCode.SUCCESS;
+        result.code = ResultCode.SUCCESS.value;
         return result;
     }
 
@@ -41,7 +42,7 @@ public class ResponseResult<T> {
     public static <T> ResponseResult<T> success() {
         ResponseResult<T> result = new ResponseResult<>();
         result.success = true;
-        result.code = ResultCode.SUCCESS;
+        result.code = ResultCode.SUCCESS.value;
         return result;
     }
 
@@ -53,7 +54,7 @@ public class ResponseResult<T> {
         result.success = true;
         result.data = data;
         result.message = message;
-        result.code = ResultCode.SUCCESS;
+        result.code = ResultCode.SUCCESS.value;
         return result;
     }
 
@@ -63,7 +64,7 @@ public class ResponseResult<T> {
     public static <T> ResponseResult<T> failure(String message) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setMessage(message);
-        result.setCode(ResultCode.FAILURE);
+        result.setCode(ResultCode.FAILURE.value);
         result.success = false;
         return result;
     }
@@ -71,7 +72,7 @@ public class ResponseResult<T> {
     /**
      * 返回失败的结果
      */
-    public static <T> ResponseResult<T> failure(String message, ResultCode code) {
+    public static <T> ResponseResult<T> failure(String message, int code) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setMessage(message);
         result.setCode(code);
@@ -82,11 +83,10 @@ public class ResponseResult<T> {
     /**
      * 异常结果
      */
-    public static <T> ResponseResult<T> error(String message, Throwable throwable) {
-        log.error(message, throwable);
+    public static <T> ResponseResult<T> error(String message) {
         ResponseResult<T> result = new ResponseResult<>();
         result.success = false;
-        result.setCode(ResultCode.EXCEPTION);
+        result.setCode(ResultCode.EXCEPTION.value);
         result.setMessage(message);
         return result;
     }
@@ -94,8 +94,7 @@ public class ResponseResult<T> {
     /**
      * 返回异常结果
      */
-    public static <T> ResponseResult<T> error(String message, Throwable throwable, ResultCode code) {
-        log.error(message, throwable);
+    public static <T> ResponseResult<T> error(String message, int code) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setMessage(message);
         result.setCode(code);
