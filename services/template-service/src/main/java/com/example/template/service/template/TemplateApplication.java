@@ -13,7 +13,7 @@ public class TemplateApplication {
 
     public static void main(String[] args) {
 
-        log.info("应用启动标记--date:{}", DateUtil.getDateStr());
+        log.info("应用启动标记  time:{}", DateUtil.getDatetimeStr());
         SpringApplication.run(TemplateApplication.class, args);
     }
 
