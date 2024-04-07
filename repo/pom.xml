@@ -40,13 +40,13 @@
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>4.2.3</version>
+            <version>4.3.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.4.5</version>
+            <version>1.4.6</version>
         </dependency>
 
     </dependencies>
@@ -71,7 +71,7 @@
                     <dependency>
                         <groupId>tk.mybatis</groupId>
                         <artifactId>mapper</artifactId>
-                        <version>4.2.3</version>
+                        <version>4.3.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
