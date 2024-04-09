@@ -7,7 +7,7 @@
     <!--    <classPathEntry-->
     <!--    location="C:\Users\Administrator\.m2\repository\org\postgresql\postgresql\42.2.6" />-->
 
-    <context id="default" targetRuntime="MyBatis3">
+    <context id="template" targetRuntime="MyBatis3" defaultModelType="flat">
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <!--            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>-->

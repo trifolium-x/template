@@ -1,4 +1,5 @@
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
+FROM ibm-semeru-runtimes:open-17.0.10_7-jre-jammy
 
 MAINTAINER trifolium <trifolium.wang@gmail.com>
 
@@ -14,7 +15,7 @@ WORKDIR /app
 
 COPY services/template-service/target/template-service.jar /app/app.jar
 
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:InitialRAMPercentage=70.0",
- "-XX:MaxRAMPercentage=70.0", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:InitialRAMPercentage=70.0", \
+"-XX:MaxRAMPercentage=70.0", "-jar", "app.jar"]
 
 EXPOSE 8080
