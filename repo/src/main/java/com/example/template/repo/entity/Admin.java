@@ -24,7 +24,7 @@ public class Admin {
     @Column(name = "`name`")
     private String name;
 
-    @Column(name = "user_name")
+//    @Column(name = "user_name")
     private String userName;
 
     @Column(name = "`password`")
@@ -56,5 +56,5 @@ public class Admin {
     private Boolean isDel;
 
     @Column(name = "ext")
-    private String ext;
+    private String ext344;
 }

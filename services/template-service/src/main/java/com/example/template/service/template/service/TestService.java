@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @title: TestService
@@ -33,6 +34,16 @@ public class TestService {
 
         QueryHelper.setupPageCondition(searchRo);
         return QueryHelper.getPaging(adminMapper.selectAll(), AdminBaseVo.class);
+    }
+
+    public Paging<AdminBaseVo> adminList2(SearchRo searchRo) {
+
+        QueryHelper.setupPageCondition(searchRo);
+
+        // debug
+        List<Admin> allAdmin = adminMapper.findAllAdmin();
+
+        return QueryHelper.getPaging(allAdmin, AdminBaseVo.class);
     }
 
     @TuCache(key = "admin:admin_detail:#{#id}")

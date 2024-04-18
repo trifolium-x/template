@@ -37,9 +37,16 @@ public class TestApi {
         return ResponseResult.success(testService.adminList(searchRo));
     }
 
-    @Operation(summary = "用户列表有缓存", description = "查询管理员的列表但又缓存")
+    @Operation(summary = "用户列表", description = "查询管理员的列表")
     @PostMapping("/list2")
     public ResponseResult<Paging<AdminBaseVo>> list2(@Valid @RequestBody SearchRo searchRo) {
+
+        return ResponseResult.success(testService.adminList2(searchRo));
+    }
+
+    @Operation(summary = "用户列表有缓存", description = "查询管理员的列表但又缓存")
+    @PostMapping("/list3")
+    public ResponseResult<Paging<AdminBaseVo>> list3(@Valid @RequestBody SearchRo searchRo) {
 
         return ResponseResult.success(testService.adminListHasCache(searchRo));
     }
