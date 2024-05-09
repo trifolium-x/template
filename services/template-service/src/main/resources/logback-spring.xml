@@ -12,11 +12,13 @@
         </rollingPolicy>
 
         <encoder>
+            <charset>UTF-8</charset>
             <pattern>%date |%-5level |[%thread] |%-40.40logger{39} |%file:%line - %msg%n</pattern>
         </encoder>
     </appender>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
+            <charset>UTF-8</charset>
             <pattern>%clr(%date) |%-5level |[%thread] |%file:%line - %msg%n</pattern>
         </encoder>
     </appender>
