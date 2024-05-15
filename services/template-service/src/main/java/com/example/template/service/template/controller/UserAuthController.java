@@ -1,4 +1,4 @@
-package com.example.template.service.template.api;
+package com.example.template.service.template.controller;
 
 import com.example.template.common.response.ResponseResult;
 import com.example.template.service.template.model.ro.AdminLoginRo;
@@ -16,20 +16,20 @@ import javax.validation.Valid;
 import java.io.IOException;
 
 /**
- * @title: UserAuthApi
+ * @title: UserAuthController
  * @author: trifolium
  * @date: 2023/1/9
  * @modified :
  */
-@Tag(name="授权相关接口")
+@Tag(name = "授权相关接口")
 @RestController
 @RequestMapping("/auth")
-public class UserAuthApi {
+public class UserAuthController {
 
     private final UserAuthService authService;
 
     @Inject
-    public UserAuthApi(UserAuthService authService){
+    public UserAuthController(UserAuthService authService) {
         this.authService = authService;
     }
 
@@ -40,9 +40,9 @@ public class UserAuthApi {
         return ResponseResult.success(authService.login(adminLoginRo));
     }
 
-    @Operation(summary =  "修改密码")
+    @Operation(summary = "修改密码")
     @TokenValidator
-    @PostMapping("/edit_pwd")
+    @PostMapping("/edit-pwd")
     public ResponseResult<Void> editPwd(@Valid @RequestBody EditPwdRo editPwdRo) {
 
         authService.editPwd(editPwdRo);
@@ -57,8 +57,8 @@ public class UserAuthApi {
         return ResponseResult.success();
     }
 
-    @Operation(summary =  "获取验证码")
-    @GetMapping("/captcha_image")
+    @Operation(summary = "获取验证码")
+    @GetMapping("/captcha-image")
     public void getCaptcha(HttpServletResponse response) throws IOException {
         authService.captchaImage(response);
     }

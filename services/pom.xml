@@ -22,7 +22,7 @@
         <spring.boot.version>2.7.18</spring.boot.version>
         <redisson.version>3.23.2</redisson.version>
         <tucache.version>1.0.3.RELEASE</tucache.version>
-        <knife4j.version>4.3.0</knife4j.version>
+        <knife4j.version>4.4.0</knife4j.version>
     </properties>
 
     <dependencyManagement>

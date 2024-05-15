@@ -1,4 +1,4 @@
-package com.example.template.service.template.api;
+package com.example.template.service.template.controller;
 
 import com.example.template.common.response.Paging;
 import com.example.template.common.response.ResponseResult;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 /**
- * @title: TestApi
+ * @title: TestController
  * @author: trifolium
  * @date: 2023/9/8
  * @modified :
@@ -21,12 +21,12 @@ import javax.validation.Valid;
 @Tag(name = "test")
 @RestController
 @RequestMapping("/test")
-public class TestApi {
+public class TestController {
 
     private final TestService testService;
 
     @Inject
-    public TestApi(TestService testService) {
+    public TestController(TestService testService) {
         this.testService = testService;
     }
 
@@ -59,7 +59,7 @@ public class TestApi {
     }
 
     @Operation(summary = "清理所有缓存")
-    @GetMapping("/clear_all_cache")
+    @GetMapping("/clear-all-cache")
     public ResponseResult<Void> clearAllCache() {
 
         testService.clearAllCache();

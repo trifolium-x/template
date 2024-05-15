@@ -1,4 +1,4 @@
-package com.example.template.service.template.api;
+package com.example.template.service.template.controller;
 
 import com.example.template.common.response.Paging;
 import com.example.template.common.response.ResponseResult;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @title: AccountAdminApi
+ * @title: AccountAdminController
  * @author: trifolium.wang
  * @date: 2023/11/10
  * @modified :
@@ -28,13 +28,13 @@ import java.util.List;
 @Tag(name = "账户管理")
 @RestController
 @TokenValidator(authorities = {"account_admin"})
-@RequestMapping("/user_admin")
-public class AccountAdminApi {
+@RequestMapping("/user-admin")
+public class AccountAdminController {
 
     private final AccountAdminService accountAdminService;
 
     @Inject
-    public AccountAdminApi(AccountAdminService accountAdminService) {
+    public AccountAdminController(AccountAdminService accountAdminService) {
         this.accountAdminService = accountAdminService;
     }
 
@@ -61,7 +61,7 @@ public class AccountAdminApi {
     }
 
     @Operation(summary = "禁用或者启用角色")
-    @GetMapping("/role/dis_en_able")
+    @GetMapping("/role/dis-en-able")
     public ResponseResult<Void> disEnAbleRole(@RequestParam String code) {
 
         accountAdminService.disEnAbleRole(code);
@@ -108,7 +108,7 @@ public class AccountAdminApi {
     }
 
     @Operation(summary = "启用/禁用管理员")
-    @GetMapping("/user/dis_en_able")
+    @GetMapping("/user/dis-en-able")
     public ResponseResult<Void> disEnAbleAdmin(@RequestParam Long id) {
 
         accountAdminService.disEnAbleAdmin(id);
