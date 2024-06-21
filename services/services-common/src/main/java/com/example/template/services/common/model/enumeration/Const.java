@@ -1,7 +1,8 @@
 package com.example.template.services.common.model.enumeration;
 
 /**
- * @title: Const
+ * @title: 常量
+ * 建议所有的通用常量放入到该类中，统一做管理
  * @author: trifolium
  * @date: 2023/1/6
  * @modified :

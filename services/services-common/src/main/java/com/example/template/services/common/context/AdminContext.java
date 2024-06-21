@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @title: 登录用户上下文
+ * 基于请求上下文
  * @author: trifolium
  * @date: 2021/9/1
  * @modified :

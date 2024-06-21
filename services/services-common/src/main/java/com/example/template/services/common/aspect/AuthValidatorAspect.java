@@ -10,7 +10,7 @@ import com.example.template.repo.entity.Admin;
 import com.example.template.repo.entity.Authorization;
 import com.example.template.services.common.RedisCacheService;
 import com.example.template.services.common.SessionHolder;
-import com.example.template.services.common.annotion.TokenValidator;
+import com.example.template.services.common.annotion.AuthValidator;
 import com.example.template.services.common.model.enumeration.AuthorizationType;
 import com.example.template.services.common.model.enumeration.Const;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Aspect
 @Component
-public class TokenAuthAspect {
+public class AuthValidatorAspect {
 
     @Inject
     private RedisCacheService cacheService;
@@ -50,8 +50,8 @@ public class TokenAuthAspect {
     /**
      * pointcut
      */
-    @Pointcut("@within(com.example.template.services.common.annotion.TokenValidator) " +
-            "|| @annotation(com.example.template.services.common.annotion.TokenValidator)")
+    @Pointcut("@within(com.example.template.services.common.annotion.AuthValidator) " +
+            "|| @annotation(com.example.template.services.common.annotion.AuthValidator)")
     private void tokenAuthCheck() {
 
     }
@@ -61,11 +61,11 @@ public class TokenAuthAspect {
         Signature signature = pjp.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method targetMethod = methodSignature.getMethod();
-        TokenValidator tokenValidator = targetMethod.getAnnotation(TokenValidator.class);
+        AuthValidator tokenValidator = targetMethod.getAnnotation(AuthValidator.class);
 
         // 方法上的注解优先级大于类
         if (tokenValidator == null) {
-            tokenValidator = pjp.getTarget().getClass().getAnnotation(TokenValidator.class);
+            tokenValidator = pjp.getTarget().getClass().getAnnotation(AuthValidator.class);
             if (tokenValidator != null) {
                 checkToken(tokenValidator);
             }
@@ -76,7 +76,7 @@ public class TokenAuthAspect {
         return pjp.proceed();
     }
 
-    public void checkToken(TokenValidator adminTokenValidator) {
+    public void checkToken(AuthValidator adminTokenValidator) {
 
         String errMsg = "令牌验证失败";
 

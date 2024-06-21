@@ -9,7 +9,7 @@ import com.example.template.service.template.model.vo.account.AdminListVo;
 import com.example.template.service.template.model.vo.account.AuthTreeVo;
 import com.example.template.service.template.model.vo.account.RoleListVo;
 import com.example.template.service.template.service.AccountAdminService;
-import com.example.template.services.common.annotion.TokenValidator;
+import com.example.template.services.common.annotion.AuthValidator;
 import com.example.template.services.common.model.ro.SearchRo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Tag(name = "账户管理")
 @RestController
-@TokenValidator(authorities = {"account_admin"})
+@AuthValidator(authorities = {"account_admin"})
 @RequestMapping("/user-admin")
 public class AccountAdminController {
 

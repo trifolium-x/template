@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface TokenValidator {
+public @interface AuthValidator {
 
     /**
      * 权限数组

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @title: Created by trifolium.
+ * @title: 会话上下文，用于获取request，session等。
  * @author: trifolium
  * @date: 2021/9/1
  * @modified :

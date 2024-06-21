@@ -12,7 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @title: HttpErrorHandler
+ * @title: 错误页面统一处理类
  * @author: trifolium
  * @date: 2022/1/27
  * @modified :

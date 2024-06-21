@@ -5,7 +5,7 @@ import com.example.template.service.template.model.ro.AdminLoginRo;
 import com.example.template.service.template.model.ro.EditPwdRo;
 import com.example.template.service.template.model.vo.auth.LoginVo;
 import com.example.template.service.template.service.UserAuthService;
-import com.example.template.services.common.annotion.TokenValidator;
+import com.example.template.services.common.annotion.AuthValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class UserAuthController {
     }
 
     @Operation(summary = "修改密码")
-    @TokenValidator
+    @AuthValidator
     @PostMapping("/edit-pwd")
     public ResponseResult<Void> editPwd(@Valid @RequestBody EditPwdRo editPwdRo) {
 
@@ -50,7 +50,7 @@ public class UserAuthController {
     }
 
     @Operation(summary = "管理员登出")
-    @TokenValidator
+    @AuthValidator
     @GetMapping("/logout")
     public ResponseResult<Object> logout() {
         authService.logout();

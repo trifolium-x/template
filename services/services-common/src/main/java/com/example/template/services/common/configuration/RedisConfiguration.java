@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 /**
- * @title:
+ * @title: redis缓存相关配置类
  * @author: trifolium
  * @date: 2019/4/18 13:35
  * @modified :

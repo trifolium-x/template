@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
- * @title: Created by trifolium.
+ * @title: 封装了RedisTemplate
  * @author: trifolium
  * @date: 2021/9/1
  * @modified :
