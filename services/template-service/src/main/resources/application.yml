@@ -2,12 +2,16 @@ server:
   servlet:
     context-path: /template
     application-display-name: template脚手架项目
-  port: 8080
+  port: 8083
   error:
     whitelabel:
       enabled: false
 
 spring:
+  profiles:
+    active: dev
+  application:
+    name: template
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -15,11 +19,6 @@ spring:
 #    log-resolved-exception: false
     # 开发环境下的请求追踪
 #    log-request-details: false
-
-  profiles:
-    active: dev
-  application:
-    name: template
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
