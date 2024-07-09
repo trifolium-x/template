@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class AdminContext {
+public class UserContext {
 
     @Inject
     private RedisCacheService cacheService;

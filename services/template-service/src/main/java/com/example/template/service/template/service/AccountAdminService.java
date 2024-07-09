@@ -27,7 +27,7 @@ import com.example.template.service.template.model.vo.account.AdminDetailVo;
 import com.example.template.service.template.model.vo.account.AdminListVo;
 import com.example.template.service.template.model.vo.account.AuthTreeVo;
 import com.example.template.service.template.model.vo.account.RoleListVo;
-import com.example.template.services.common.context.AdminContext;
+import com.example.template.services.common.context.UserContext;
 import com.example.template.services.common.model.ro.SearchRo;
 import com.example.template.services.common.model.vo.BaseVo;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class AccountAdminService {
     private AdminRoleMapper adminRoleMapper;
 
     @Inject
-    private AdminContext adminContext;
+    private UserContext adminContext;
 
     @Inject
     private AuthRoleIdxMapper authRoleIdxMapper;

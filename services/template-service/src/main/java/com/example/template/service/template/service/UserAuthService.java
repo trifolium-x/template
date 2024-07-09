@@ -20,7 +20,7 @@ import com.example.template.service.template.model.vo.auth.LoginVo;
 import com.example.template.services.common.RedisCacheService;
 import com.example.template.services.common.SessionHolder;
 import com.example.template.services.common.configuration.AppConfig;
-import com.example.template.services.common.context.AdminContext;
+import com.example.template.services.common.context.UserContext;
 import com.example.template.services.common.model.enumeration.AuthorizationType;
 import com.example.template.services.common.model.enumeration.Const;
 import org.redisson.api.RateIntervalUnit;
@@ -54,7 +54,7 @@ public class UserAuthService {
     private RedisCacheService redisCacheService;
 
     @Inject
-    private AdminContext adminContext;
+    private UserContext adminContext;
 
     @Inject
     private AdminMapper adminMapper;
