@@ -1,4 +1,4 @@
-package com.example.template.services.common;
+package com.example.template.services.common.component;
 
 import com.example.template.common.util.ThreadPoolUtil;
 import org.springframework.beans.factory.DisposableBean;

@@ -1,4 +1,4 @@
-package com.example.template.services.common;
+package com.example.template.services.common.holder;
 
 import cn.hutool.core.util.StrUtil;
 import org.springframework.web.context.request.RequestContextHolder;

@@ -1,4 +1,4 @@
-package com.example.template.services.common;
+package com.example.template.services.common.cache;
 
 import cn.hutool.core.util.StrUtil;
 import com.example.template.services.common.configuration.AppConfig;
