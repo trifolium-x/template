@@ -1,7 +1,7 @@
 package com.example.template.services.common.configuration;
 
 import cn.hutool.core.collection.CollUtil;
-import com.example.template.common.helper.exception.AppException;
+import com.example.template.common.helper.exception.AppBaseException;
 import com.example.template.common.helper.exception.NoAuthException;
 import com.example.template.common.helper.exception.TokenInvalidException;
 import com.example.template.common.response.ResponseResult;
@@ -41,7 +41,7 @@ public class BaseWebMvcConfig implements WebMvcConfigurer {
     public ResponseEntity<ResponseResult<Object>> exceptionHandler(Exception exception) {
 
         String message;
-        if (exception instanceof AppException) {
+        if (exception instanceof AppBaseException) {
 
             message = exception.getMessage();
 

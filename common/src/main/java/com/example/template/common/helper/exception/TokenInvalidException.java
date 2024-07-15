@@ -5,7 +5,7 @@ package com.example.template.common.helper.exception;
  * @author: trifolium
  * @date: 2019/3/11 19:48
  */
-public class TokenInvalidException extends AppException {
+public class TokenInvalidException extends AppBaseException {
 
     public TokenInvalidException(String message) {
         super(message);

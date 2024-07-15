@@ -5,7 +5,7 @@ package com.example.template.common.helper.exception;
  * @author: trifolium
  * @date: 2019/3/11 19:48
  */
-public class NoAuthException extends AppException {
+public class NoAuthException extends AppBaseException {
 
     public NoAuthException(String message) {
         super(message);

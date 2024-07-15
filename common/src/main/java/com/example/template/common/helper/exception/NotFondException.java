@@ -5,7 +5,7 @@ package com.example.template.common.helper.exception;
  * @author: trifolium
  * @date: 2019/3/11 19:48
  */
-public class NotFondException extends AppException {
+public class NotFondException extends AppBaseException {
     public NotFondException(String message) {
         super(message);
     }
