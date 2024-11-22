@@ -1,5 +1,7 @@
 package com.example.template.services.common.cache;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
 import com.example.template.services.common.configuration.AppConfig;
 import lombok.Getter;
@@ -156,8 +158,12 @@ public class RedisCacheService {
         return Boolean.TRUE.equals(redisTemplate.hasKey(prefixed(key)));
     }
 
+    public <T> T get(String key, Class<T> clazz) {
+        return get(key, clazz, NOT_EXPIRE);
+    }
+
     public <T> T get(String key, Class<T> clazz, long expire) {
-        Object value = valueOps.get(prefixed(key));
+        Object value = getObject(key);
 
         if (expire != NOT_EXPIRE) {
             redisTemplate.expire(prefixed(key), expire, TimeUnit.SECONDS);
@@ -167,36 +173,12 @@ public class RedisCacheService {
 
     }
 
-
-    public <T> T getNoPrefix(String key, Class<T> clazz, long expire) {
-        Object value = valueOps.get(key);
-
-        if (expire != NOT_EXPIRE) {
-            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
-        }
-
-        return valueOf(value, clazz);
-    }
-
-    public <T> T get(String key, Class<T> clazz) {
-        return get(key, clazz, NOT_EXPIRE);
-    }
-
-    /**
-     * 设置值，但是不会重置过期时间
-     *
-     */
-    public void update(String key, Object value) {
-        Long expire = redisTemplate.getExpire(prefixed(key), TimeUnit.SECONDS);
-
-        // 1秒的延迟
-        if (expire != null && expire > 1) {
-            redisTemplate.opsForValue().set(prefixed(key), value, expire, TimeUnit.SECONDS);
-        }
+    public String getString(String key) {
+        return getString(key, NOT_EXPIRE);
     }
 
     public String getString(String key, long expire) {
-        Object value = valueOps.get(prefixed(key));
+        Object value = getObject(key);
         if (expire != NOT_EXPIRE) {
             redisTemplate.expire(prefixed(key), expire, TimeUnit.SECONDS);
         }
@@ -206,8 +188,45 @@ public class RedisCacheService {
         return value.toString();
     }
 
-    public String getString(String key) {
-        return getString(key, NOT_EXPIRE);
+    public <T> T get(String key, TypeReference<T> typeReference) {
+
+        return get(key, typeReference, NOT_EXPIRE);
+    }
+
+    public <T> T get(String key, TypeReference<T> typeReference, long expire) {
+
+        Object value = getObject(key);
+        if (expire != NOT_EXPIRE) {
+            redisTemplate.expire(prefixed(key), expire, TimeUnit.SECONDS);
+        }
+
+        if (value == null) {
+            return null;
+        }
+
+        return Convert.convert(typeReference, getObject(key));
+    }
+
+    public Object getObject(String key) {
+        return valueOps.get(prefixed(key));
+    }
+
+    public <T> T getNoPrefix(String key, Class<T> clazz) {
+        Object value = valueOps.get(key);
+
+        return valueOf(value, clazz);
+    }
+
+    /**
+     * 设置值，但是不会重置过期时间
+     */
+    public void update(String key, Object value) {
+        Long expire = redisTemplate.getExpire(prefixed(key), TimeUnit.SECONDS);
+
+        // 1秒的延迟
+        if (expire != null && expire > 1) {
+            redisTemplate.opsForValue().set(prefixed(key), value, expire, TimeUnit.SECONDS);
+        }
     }
 
     public void delete(String key) {
@@ -234,10 +253,6 @@ public class RedisCacheService {
 
     public Long getExpire(String key) {
         return redisTemplate.getExpire(prefixed(key), TimeUnit.SECONDS);
-    }
-
-    private String prefixed(String key) {
-        return StrUtil.isEmpty(appConfig.getCacheKeyPrefix()) ? key : appConfig.getCacheKeyPrefix() + key;
     }
 
 
@@ -379,6 +394,10 @@ public class RedisCacheService {
         }
 
         return clazz.cast(value);
+    }
+
+    private String prefixed(String key) {
+        return StrUtil.isEmpty(appConfig.getCacheKeyPrefix()) ? key : appConfig.getCacheKeyPrefix() + key;
     }
 
 }

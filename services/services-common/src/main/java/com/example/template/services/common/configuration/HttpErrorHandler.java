@@ -1,7 +1,6 @@
 package com.example.template.services.common.configuration;
 
 import com.example.template.common.response.ResponseResult;
-import com.example.template.common.response.ResultCode;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -45,7 +44,7 @@ public class HttpErrorHandler implements ErrorController {
     public ResponseResult<Void> errorJson(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
 
-        return ResponseResult.failure(status.value() + " : " + status.getReasonPhrase(), ResultCode.FAILURE.getValue());
+        return ResponseResult.failure(status.value() + " : " + status.getReasonPhrase());
     }
 
 }

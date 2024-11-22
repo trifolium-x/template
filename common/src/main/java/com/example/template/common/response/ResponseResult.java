@@ -70,17 +70,6 @@ public class ResponseResult<T> {
     }
 
     /**
-     * 返回失败的结果
-     */
-    public static <T> ResponseResult<T> failure(String message, int code) {
-        ResponseResult<T> result = new ResponseResult<>();
-        result.setMessage(message);
-        result.setCode(code);
-        result.success = false;
-        return result;
-    }
-
-    /**
      * 异常结果
      */
     public static <T> ResponseResult<T> error(String message) {
@@ -92,9 +81,9 @@ public class ResponseResult<T> {
     }
 
     /**
-     * 返回异常结果
+     * 返回自定义code结果
      */
-    public static <T> ResponseResult<T> error(String message, int code) {
+    public static <T> ResponseResult<T> of(String message, int code) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setMessage(message);
         result.setCode(code);

@@ -27,8 +27,9 @@ public class BizException extends InvokeException {
     }
 
     public BizException(String bizName, String code, String message) {
-
         super(message);
+        this.bizName = bizName;
+        this.code = code;
     }
 
 }

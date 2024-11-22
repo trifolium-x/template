@@ -10,16 +10,24 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author trifolium
- * @version 1.0
+ * AESUtil 工具类
+ *
+ * @author: trifolium.wang
+ * @date: 2024/9/24
  */
 @Slf4j
 public class AESUtil {
 
-    //偏移量
-    public static final String OFFSET = "MIICdwIBADANBgkq";
+    private static final String DEFAULT_OFFSET = "MI1CdwIBadANB359";
+
+    // 偏移量
+    private final static ThreadLocal<String> OFFSET = new ThreadLocal<>();
 
     private AESUtil() {
+    }
+
+    public static void setOffset(String offset) {
+        OFFSET.set(offset);
     }
 
     /**
@@ -34,7 +42,7 @@ public class AESUtil {
 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
-            IvParameterSpec iv = new IvParameterSpec(OFFSET.getBytes(StandardCharsets.UTF_8));
+            IvParameterSpec iv = new IvParameterSpec(getOffset().getBytes(StandardCharsets.UTF_8));
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
             byte[] encrypted = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
 
@@ -61,7 +69,7 @@ public class AESUtil {
             byte[] encrypted1 = Base64Decoder.decode(data);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
-            IvParameterSpec iv = new IvParameterSpec(OFFSET.getBytes(StandardCharsets.UTF_8));
+            IvParameterSpec iv = new IvParameterSpec(getOffset().getBytes(StandardCharsets.UTF_8));
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
             byte[] original = cipher.doFinal(encrypted1);
 
@@ -72,4 +80,8 @@ public class AESUtil {
         }
     }
 
+    private static String getOffset() {
+        String offSet = OFFSET.get();
+        return offSet == null ? DEFAULT_OFFSET : offSet;
+    }
 }

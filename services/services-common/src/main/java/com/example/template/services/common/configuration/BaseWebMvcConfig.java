@@ -46,13 +46,11 @@ public class BaseWebMvcConfig implements WebMvcConfigurer {
             message = exception.getMessage();
 
             if (exception instanceof TokenInvalidException) {
-                return new ResponseEntity<>(ResponseResult.failure(
-                        message, ResultCode.TOKEN_INVALID.getValue()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
             }
             if (exception instanceof NoAuthException) {
 
-                return new ResponseEntity<>(ResponseResult.failure(message,
-                        ResultCode.NO_AUTH.getValue()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
             }
 
             return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);

@@ -20,7 +20,8 @@ public class ThreadPoolUtil {
     // 任务队列长度
     private static final int MAX_QUEUE_SIZE = Integer.MAX_VALUE;
 
-    private static final int CORE_THREAD_NUM = Runtime.getRuntime().availableProcessors();
+    // 最小保证4个线程活跃
+    private static final int CORE_THREAD_NUM = Math.max(Runtime.getRuntime().availableProcessors(), 4);
     // 最大为100个线程
     private static final int MAX_THREAD_NUM = Math.min(CORE_THREAD_NUM * 24, 100);
 
